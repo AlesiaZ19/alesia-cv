@@ -114,8 +114,8 @@ const cvData = {
     languages: {
       title: 'Languages',
       items: [
-        { name: 'Russian', level: 'Native' },
-        { name: 'English', level: 'Proficient' }
+        { name: 'Russian', level: 'Native speaker' },
+        { name: 'English', level: 'Intermediate (B1)' }
       ]
     },
     contact: {
@@ -245,7 +245,7 @@ const cvData = {
       title: 'Языки',
       items: [
         { name: 'Русский', level: 'Родной' },
-        { name: 'Английский', level: 'Свободно владею' }
+        { name: 'Английский', level: 'Intermediate (B1)' }
       ]
     },
     contact: {
