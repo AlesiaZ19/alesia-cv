@@ -1,21 +1,16 @@
-// Detect language based on URL query, localStorage, then browser language
+// ─── Language detection ───
+
 function detectLanguage() {
   const params = new URLSearchParams(window.location.search);
-  if (params.get('lang') === 'ru') {
-    return 'ru';
-  }
+  if (params.get('lang') === 'ru') return 'ru';
   const savedLang = localStorage.getItem('lang');
-  if (savedLang) {
-    return savedLang;
-  }
-  
+  if (savedLang) return savedLang;
   const browserLang = navigator.language.split('-')[0];
   return browserLang === 'ru' ? 'ru' : 'en';
 }
 
 let currentLang = detectLanguage();
 
-// Sync URL query with language on first load
 (function initUrl() {
   const url = new URL(window.location);
   if (currentLang === 'ru' && url.searchParams.get('lang') !== 'ru') {
@@ -27,62 +22,68 @@ let currentLang = detectLanguage();
   }
 })();
 
-function renderPage(lang) {
-  const d = cvData[lang];
+// ─── Helpers ───
+
+function setMeta(selector, prop, value) {
+  const el = document.querySelector(selector);
+  if (el) el[prop] = value;
+}
+
+function renderNavItems(items, containerId) {
+  const ul = document.getElementById(containerId);
+  if (!ul) return;
+  const cls = containerId === 'navLinks' ? 'nav-link' : 'mobile-nav-link';
+  ul.innerHTML = items.map(item =>
+    `<li><a href="#${item.id}" class="${cls}">${item.label}</a></li>`
+  ).join('');
+}
+
+// ─── Render helpers ───
+
+function renderMeta(d, lang) {
+  const baseUrl = 'https://alesiaz19.github.io/alesia-cv';
+  const pageUrl = lang === 'ru' ? baseUrl + '/?lang=ru' : baseUrl + '/';
 
   document.documentElement.lang = lang;
   document.title = d.pageTitle;
 
-  // Update OG / Twitter meta tags for current language
-  document.querySelector('meta[property="og:title"]').content = d.pageTitle;
-  document.querySelector('meta[name="twitter:title"]').content = d.pageTitle;
-  document.querySelector('meta[name="description"]').content = d.about.text;
-  document.querySelector('meta[property="og:description"]').content = d.about.text;
-  document.querySelector('meta[name="twitter:description"]').content = d.about.text;
-  document.querySelector('meta[property="og:locale"]').content = lang === 'ru' ? 'ru_RU' : 'en_US';
-  const baseUrl = 'https://alesiaz19.github.io/alesia-cv';
-  const pageUrl = lang === 'ru' ? baseUrl + '/?lang=ru' : baseUrl + '/';
-  document.querySelector('meta[property="og:url"]').content = pageUrl;
-  document.querySelector('link[rel="canonical"]').href = pageUrl;
+  setMeta('meta[property="og:title"]', 'content', d.pageTitle);
+  setMeta('meta[name="twitter:title"]', 'content', d.pageTitle);
+  setMeta('meta[name="description"]', 'content', d.about.text);
+  setMeta('meta[property="og:description"]', 'content', d.about.text);
+  setMeta('meta[name="twitter:description"]', 'content', d.about.text);
+  setMeta('meta[property="og:locale"]', 'content', lang === 'ru' ? 'ru_RU' : 'en_US');
+  setMeta('meta[property="og:url"]', 'content', pageUrl);
+  setMeta('link[rel="canonical"]', 'href', pageUrl);
 
-  // ─── Logo ───
-  document.getElementById('logo').textContent = d.name;
-
-  // ─── Nav ───
-  function renderNavItems(items, containerId) {
-    const ul = document.getElementById(containerId);
-    ul.innerHTML = items.map(item =>
-      `<li><a href="#${item.id}" class="${containerId === 'navLinks' ? 'nav-link' : 'mobile-nav-link'}">${item.label}</a></li>`
-    ).join('');
+  const ld = document.getElementById('ldJson');
+  if (ld) {
+    const data = JSON.parse(ld.textContent);
+    data.url = pageUrl;
+    data.description = d.about.text;
+    data.alumniOf = d.education.items.map(e => e.institution);
+    data.worksFor = d.experience.items.length > 0
+      ? { "@type": "Organization", "name": d.experience.items[0].company }
+      : undefined;
+    ld.textContent = JSON.stringify(data, null, 2);
   }
-  renderNavItems(d.nav, 'navLinks');
-  renderNavItems(d.nav, 'mobileNavLinks');
+}
 
-  // ─── Hero ───
+function renderHero(d) {
   document.getElementById('heroName').textContent = d.name;
-  document.getElementById('heroTitle').textContent = d.heroTitle;
-  document.getElementById('heroLocation').textContent = d.heroLocation;
-  const statusEl = document.getElementById('heroStatus');
-  statusEl.textContent = d.heroStatus;
-  statusEl.className = 'status-open-to-work';
-  document.getElementById('heroContacts').innerHTML = `
-    <div class="hero-contacts-line">
-      <a href="mailto:${d.heroContacts.email}" class="hero-link"><i class="fas fa-envelope"></i> ${d.heroContacts.email}</a>
-      <span class="hero-link-sep">|</span>
-      <a href="tel:${d.heroContacts.phone}" class="hero-link"><i class="fas fa-phone"></i> ${d.heroContacts.phone}</a>
-    </div>
-    <div class="hero-contacts-line">
-      <a href="${d.heroContacts.linkedin}" class="hero-link" target="_blank"><i class="fab fa-linkedin"></i> alesiaromasko</a>
-      <span class="hero-link-sep">|</span>
-      <a href="${d.heroContacts.telegram}" class="hero-link" target="_blank"><i class="fab fa-telegram-plane"></i> @lesiaRomashko</a>
-    </div>
-  `;
+  document.getElementById('heroTitle').innerHTML =
+    `${d.heroTitle} <span class="hero-sep">&middot;</span> ${d.heroLocation}`;
+  const statusDot = document.getElementById('heroStatus');
+  statusDot.textContent = d.heroStatus;
+  statusDot.className = 'status-dot';
+}
 
-  // ─── About ───
+function renderAbout(d) {
   document.getElementById('aboutTitle').textContent = d.about.title;
   document.getElementById('aboutText').textContent = d.about.text;
+}
 
-  // ─── Achievements ───
+function renderAchievements(d) {
   document.getElementById('achievementsTitle').textContent = d.achievements.title;
   document.getElementById('achievementsStats').innerHTML = d.achievements.items.map(item =>
     `<div class="stat-item">
@@ -90,14 +91,16 @@ function renderPage(lang) {
       <div class="stat-label">${item.label}</div>
     </div>`
   ).join('');
+}
 
-  // ─── Skills ───
+function renderSkills(d) {
   document.getElementById('skillsTitle').textContent = d.skills.title;
   document.getElementById('skillsGrid').innerHTML = d.skills.items.map(skill =>
     `<div class="glass-card skill-card">${skill}</div>`
   ).join('');
+}
 
-  // ─── Experience ───
+function renderExperience(d) {
   document.getElementById('experienceTitle').textContent = d.experience.title;
   document.getElementById('experienceList').innerHTML = d.experience.items.map(exp =>
     `<div class="glass-card experience-card">
@@ -109,8 +112,9 @@ function renderPage(lang) {
       </div>
     </div>`
   ).join('');
+}
 
-  // ─── Education ───
+function renderEducation(d) {
   document.getElementById('educationTitle').textContent = d.education.title;
   document.getElementById('educationList').innerHTML = d.education.items.map(edu =>
     `<div class="glass-card experience-card">
@@ -121,8 +125,9 @@ function renderPage(lang) {
       </div>
     </div>`
   ).join('');
+}
 
-  // ─── Certificates ───
+function renderCertificates(d) {
   document.getElementById('certificatesTitle').textContent = d.certificates.title;
   document.getElementById('certificatesList').innerHTML = d.certificates.items.map(cert =>
     `<div class="cert-card glass-card">
@@ -134,8 +139,9 @@ function renderPage(lang) {
       </div>
     </div>`
   ).join('');
+}
 
-  // ─── Languages ───
+function renderLanguages(d) {
   document.getElementById('languagesTitle').textContent = d.languages.title;
   document.getElementById('languagesList').innerHTML = d.languages.items.map(langItem =>
     `<div class="glass-card lang-card">
@@ -143,8 +149,9 @@ function renderPage(lang) {
       <span class="lang-level">${langItem.level}</span>
     </div>`
   ).join('');
+}
 
-  // ─── Contact ───
+function renderContact(d) {
   document.getElementById('contactTitle').textContent = d.contact.title;
   document.getElementById('contactList').innerHTML = `
     <div class="glass-card contact-item">
@@ -169,23 +176,54 @@ function renderPage(lang) {
     </div>`;
   document.getElementById('downloadLabel').textContent = d.contact.downloadLabel;
   document.getElementById('downloadBtn').href = d.contact.cvFile;
+}
 
-  // ─── Lang toggle visual ───
+function updateLangToggle(lang) {
   document.querySelectorAll('.lang-opt').forEach(opt => {
     opt.classList.toggle('active', opt.dataset.lang === lang);
   });
   const toggle = document.getElementById('langToggle');
   toggle.classList.toggle('ru', lang === 'ru');
-  toggle.classList.toggle('en', lang === 'en');
+}
 
-  // ─── Re-bind mobile nav click-to-close ───
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.remove('active');
+let scrollObserver = null;
+
+function initScrollAnimations() {
+  if (scrollObserver) scrollObserver.disconnect();
+  scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        scrollObserver.unobserve(entry.target);
+      }
     });
-  });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  // ─── Re-observe sections for scroll animations ───
+  document.querySelectorAll('section').forEach(section => {
+    section.classList.remove('visible');
+    scrollObserver.observe(section);
+  });
+}
+
+// ─── Main render ───
+
+function renderPage(lang) {
+  const d = cvData[lang];
+
+  renderMeta(d, lang);
+  document.getElementById('logo').textContent = d.name;
+  renderNavItems(d.nav, 'navLinks');
+  renderNavItems(d.nav, 'mobileNavLinks');
+  renderHero(d);
+  renderAbout(d);
+  renderAchievements(d);
+  renderSkills(d);
+  renderExperience(d);
+  renderEducation(d);
+  renderCertificates(d);
+  renderLanguages(d);
+  renderContact(d);
+  updateLangToggle(lang);
   initScrollAnimations();
 }
 
@@ -212,32 +250,20 @@ function initLangToggle() {
   });
 }
 
-// ─── Scroll animations ───
+// ─── Mobile menu ───
 
-function initScrollAnimations() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('section').forEach(section => {
-    section.classList.remove('visible');
-    observer.observe(section);
-  });
-}
-
-// ─── Burger menu ───
-
-function initBurgerMenu() {
+function initMobileMenu() {
   const burger = document.getElementById('burgerMenu');
   const menu = document.getElementById('mobileMenu');
 
   burger.addEventListener('click', () => {
     menu.classList.toggle('active');
+  });
+
+  menu.addEventListener('click', (e) => {
+    if (e.target.closest('.mobile-nav-link')) {
+      menu.classList.remove('active');
+    }
   });
 }
 
@@ -245,17 +271,31 @@ function initBurgerMenu() {
 
 function initScrollHeader() {
   const header = document.getElementById('header');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 50);
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        header.classList.toggle('scrolled', window.scrollY > 50);
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
 }
 
-// ─── Scroll-to-top button ───
+// ─── Scroll-to-top ───
 
 function initScrollTop() {
   const btn = document.getElementById('scrollTop');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 400);
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -287,7 +327,7 @@ function initLightbox() {
 
 renderPage(currentLang);
 initLangToggle();
-initBurgerMenu();
+initMobileMenu();
 initScrollHeader();
 initScrollTop();
 initLightbox();

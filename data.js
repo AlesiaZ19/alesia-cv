@@ -5,12 +5,6 @@ const cvData = {
     heroTitle: "Lead IT Recruiter / Recruitment Team Lead",
     heroStatus: "Open to work",
     heroLocation: "Belarus, Minsk",
-    heroContacts: {
-      email: "alesiaromasko19@gmail.com",
-      phone: "+375298508516",
-      linkedin: "https://linkedin.com/in/alesiaromasko",
-      telegram: "https://t.me/lesiaRomashko",
-    },
     nav: [
       { id: "hero", label: "Home" },
       { id: "about", label: "About" },
@@ -144,12 +138,6 @@ const cvData = {
     heroTitle: "Ведущий IT-рекрутер / Руководитель группы подбора",
     heroStatus: "Открыта к предложениям",
     heroLocation: "Беларусь, Минск",
-    heroContacts: {
-      email: "alesiaromasko19@gmail.com",
-      phone: "+375298508516",
-      linkedin: "https://linkedin.com/in/alesiaromasko",
-      telegram: "https://t.me/lesiaRomashko",
-    },
     nav: [
       { id: "hero", label: "Главная" },
       { id: "about", label: "Обо мне" },

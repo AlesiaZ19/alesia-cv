@@ -27,17 +27,35 @@
     <meta name="twitter:description" content="Lead IT Recruiter with 2.5+ years of experience in full-cycle recruitment, stakeholder management, and data-driven hiring.">
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="ldJson">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Alesia Zayats",
+      "givenName": "Alesia",
+      "familyName": "Zayats",
       "jobTitle": "Lead IT Recruiter / Recruitment Team Lead",
+      "description": "Lead IT Recruiter with 2.5+ years of experience in full-cycle recruitment, stakeholder management, and data-driven hiring.",
       "address": { "@type": "PostalAddress", "addressLocality": "Minsk", "addressCountry": "BY" },
       "email": "alesiaromasko19@gmail.com",
       "telephone": "+375298508516",
       "url": "https://alesiaz19.github.io/alesia-cv/",
-      "knowsAbout": ["IT Recruitment", "Stakeholder Management", "Market Intelligence", "Data-driven Hiring"]
+      "sameAs": [
+        "https://linkedin.com/in/alesiaromasko",
+        "https://t.me/lesiaRomashko"
+      ],
+      "knowsAbout": [
+        "IT Recruitment",
+        "Technical Recruiting",
+        "Talent Acquisition",
+        "Stakeholder Management",
+        "Market Intelligence",
+        "Data-driven Hiring",
+        "Recruitment Analytics",
+        "Team Leadership",
+        "Offer Negotiation",
+        "Strategic Sourcing"
+      ]
     }
     </script>
 
@@ -53,7 +71,6 @@
         <ul class="nav-links" id="navLinks"></ul>
         <div class="lang-toggle" id="langToggle">
             <span class="lang-opt" data-lang="en">EN</span>
-            <span class="lang-divider"></span>
             <span class="lang-opt" data-lang="ru">RU</span>
             <div class="lang-slider" id="langSlider"></div>
         </div>
@@ -70,15 +87,13 @@
     <div class="container">
         <section id="hero" class="hero">
             <h1 id="heroName">Alesia Zayats</h1>
-            <p id="heroTitle"></p>
-            <p id="heroStatus" class="status-open-to-work"></p>
-            <p id="heroLocation"></p>
-            <div id="heroContacts"></div>
+            <p id="heroTitle" class="hero-title"></p>
+            <span id="heroStatus" class="status-dot" role="status" aria-label="Open to work"></span>
         </section>
 
         <section id="about">
             <h2 id="aboutTitle">Professional Summary</h2>
-            <div class="glass-card contact-item">
+            <div class="glass-card about-card">
                 <p id="aboutText"></p>
             </div>
         </section>
