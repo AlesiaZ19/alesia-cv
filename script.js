@@ -1,5 +1,8 @@
-// Detect language based on navigator.language
+// Detect language based on URL path, localStorage, then browser language
 function detectLanguage() {
+  if (window.location.pathname.startsWith('/alesia-cv/ru') || window.location.pathname === '/ru') {
+    return 'ru';
+  }
   const savedLang = localStorage.getItem('lang');
   if (savedLang) {
     return savedLang;
@@ -10,6 +13,16 @@ function detectLanguage() {
 }
 
 let currentLang = detectLanguage();
+
+// Sync URL path with language on first load
+(function initUrl() {
+  const base = window.location.origin + '/alesia-cv';
+  if (currentLang === 'ru' && !window.location.pathname.startsWith('/alesia-cv/ru')) {
+    history.replaceState(null, '', base + '/ru');
+  } else if (currentLang === 'en' && window.location.pathname.startsWith('/alesia-cv/ru')) {
+    history.replaceState(null, '', base + '/');
+  }
+})();
 
 function renderPage(lang) {
   const d = cvData[lang];
@@ -24,6 +37,8 @@ function renderPage(lang) {
   document.querySelector('meta[property="og:description"]').content = d.about.text;
   document.querySelector('meta[name="twitter:description"]').content = d.about.text;
   document.querySelector('meta[property="og:locale"]').content = lang === 'ru' ? 'ru_RU' : 'en_US';
+  document.querySelector('meta[property="og:url"]').content = lang === 'ru' ? 'https://alesiaz19.github.io/alesia-cv/ru' : 'https://alesiaz19.github.io/alesia-cv/';
+  document.querySelector('link[rel="canonical"]').href = lang === 'ru' ? 'https://alesiaz19.github.io/alesia-cv/ru' : 'https://alesiaz19.github.io/alesia-cv/';
 
   // ─── Logo ───
   document.getElementById('logo').textContent = d.name;
@@ -176,6 +191,12 @@ function initLangToggle() {
       if (lang !== currentLang) {
         currentLang = lang;
         localStorage.setItem('lang', lang);
+        const base = window.location.origin + '/alesia-cv';
+        if (lang === 'ru') {
+          history.replaceState(null, '', base + '/ru');
+        } else {
+          history.replaceState(null, '', base + '/');
+        }
         renderPage(lang);
       }
     });
