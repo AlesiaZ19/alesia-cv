@@ -10,6 +10,7 @@ const cvData = {
       { id: 'skills', label: 'Skills' },
       { id: 'experience', label: 'Experience' },
       { id: 'education', label: 'Education' },
+      { id: 'certificates', label: 'Certificates' },
       { id: 'languages', label: 'Languages' },
       { id: 'contact', label: 'Contact' }
     ],
@@ -43,7 +44,7 @@ const cvData = {
       title: 'Experience',
       items: [
         {
-          period: '2022 — Present',
+          period: 'Mar 2025 — May 2026',
           company: 'Andersen',
           position: 'Lead Technical Recruiter / Recruitment Team Lead',
           paragraphs: [
@@ -54,7 +55,7 @@ const cvData = {
           ]
         },
         {
-          period: '2021 — 2022',
+          period: 'Oct 2023 — Mar 2025',
           company: 'Aston',
           position: 'Technical Recruiter',
           paragraphs: [
@@ -65,7 +66,7 @@ const cvData = {
           ]
         },
         {
-          period: '2020 — 2021',
+          period: 'Jul 2019 — Sep 2020',
           company: 'Status',
           position: 'Corporate Recruiter',
           paragraphs: [
@@ -84,6 +85,29 @@ const cvData = {
           period: '2018 — 2022',
           institution: 'Moscow International University',
           degree: "Bachelor's Degree"
+        }
+      ]
+    },
+    certificates: {
+      title: 'Certificates',
+      items: [
+        {
+          file: '1738161283005.jpeg',
+          name: 'Performance Review Specialist',
+          date: 'Jan 29, 2025',
+          issuer: 'Aston'
+        },
+        {
+          file: '1701692277392.jpeg',
+          name: 'IT Sourcer',
+          date: 'Dec 1, 2023',
+          issuer: 'Aston'
+        },
+        {
+          file: '1704277092925.jpeg',
+          name: 'IT-RECRUITMENT CERTIFICATION COURSE',
+          date: 'Sep 5, 2023',
+          issuer: 'HRPR'
         }
       ]
     },
@@ -116,6 +140,7 @@ const cvData = {
       { id: 'skills', label: 'Навыки' },
       { id: 'experience', label: 'Опыт' },
       { id: 'education', label: 'Образование' },
+      { id: 'certificates', label: 'Сертификаты' },
       { id: 'languages', label: 'Языки' },
       { id: 'contact', label: 'Контакты' }
     ],
@@ -149,7 +174,7 @@ const cvData = {
       title: 'Опыт работы',
       items: [
         {
-          period: '2022 — Present',
+          period: 'Март 2025 — Май 2026',
           company: 'Andersen',
           position: 'Ведущий технический рекрутер / Руководитель группы подбора',
           paragraphs: [
@@ -160,7 +185,7 @@ const cvData = {
           ]
         },
         {
-          period: '2021 — 2022',
+          period: 'Октябрь 2023 — Март 2025',
           company: 'Aston',
           position: 'Технический рекрутер',
           paragraphs: [
@@ -171,7 +196,7 @@ const cvData = {
           ]
         },
         {
-          period: '2020 — 2021',
+          period: 'Июль 2019 — Сентябрь 2020',
           company: 'Статус',
           position: 'Корпоративный рекрутер',
           paragraphs: [
@@ -190,6 +215,29 @@ const cvData = {
           period: '2018 — 2022',
           institution: 'Московский Международный Университет',
           degree: 'Бакалавр'
+        }
+      ]
+    },
+    certificates: {
+      title: 'Сертификаты',
+      items: [
+        {
+          file: '1738161283005.jpeg',
+          name: 'Ревью производительности',
+          date: '29 января 2025',
+          issuer: 'Aston'
+        },
+        {
+          file: '1701692277392.jpeg',
+          name: 'IT Sourcer',
+          date: '1 декабря 2023',
+          issuer: 'Aston'
+        },
+        {
+          file: '1704277092925.jpeg',
+          name: 'IT-RECRUITMENT CERTIFICATION COURSE',
+          date: '5 сентября 2023',
+          issuer: 'HRPR'
         }
       ]
     },

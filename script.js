@@ -1,4 +1,15 @@
-let currentLang = localStorage.getItem('lang') || 'en';
+// Detect language based on navigator.language
+function detectLanguage() {
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang) {
+    return savedLang;
+  }
+  
+  const browserLang = navigator.language.split('-')[0];
+  return browserLang === 'ru' ? 'ru' : 'en';
+}
+
+let currentLang = detectLanguage();
 
 function renderPage(lang) {
   const d = cvData[lang];
@@ -63,6 +74,19 @@ function renderPage(lang) {
       <div>
         <strong class="company-name">${edu.institution}</strong>
         <p>${edu.degree}</p>
+      </div>
+    </div>`
+  ).join('');
+
+  // ─── Certificates ───
+  document.getElementById('certificatesTitle').textContent = d.certificates.title;
+  document.getElementById('certificatesList').innerHTML = d.certificates.items.map(cert =>
+    `<div class="cert-card glass-card">
+      <img src="img/${cert.file}" alt="${cert.name}" class="cert-img" loading="lazy">
+      <div class="cert-body">
+        <strong class="cert-name">${cert.name}</strong>
+        <span class="cert-date">${cert.date}</span>
+        <span class="cert-issuer">${cert.issuer}</span>
       </div>
     </div>`
   ).join('');
@@ -183,6 +207,27 @@ function initScrollTop() {
   });
 }
 
+// ─── Lightbox ───
+
+function initLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.getElementById('certificatesList').addEventListener('click', (e) => {
+    const card = e.target.closest('.cert-card');
+    if (!card) return;
+    const img = card.querySelector('.cert-img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('active');
+  });
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+}
+
 // ─── Init ───
 
 renderPage(currentLang);
@@ -190,3 +235,4 @@ initLangToggle();
 initBurgerMenu();
 initScrollHeader();
 initScrollTop();
+initLightbox();
