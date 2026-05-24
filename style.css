@@ -416,9 +416,88 @@ section.visible {
     background: rgba(255, 255, 255, 0.08);
 }
 
+/* ─── Certificates ─── */
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.cert-card {
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cert-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.cert-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.cert-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.cert-name {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.cert-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.cert-issuer {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ─── Lightbox ─── */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
 /* ─── Sections anchor offset ─── */
 
-#hero, #about, #achievements, #skills, #experience, #education, #languages, #contact {
+#hero, #about, #achievements, #skills, #experience, #education, #certificates, #languages, #contact {
     position: relative;
 }
 
@@ -587,6 +666,19 @@ section.visible {
         padding: 1.25rem;
     }
 
+    .cert-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .cert-body {
+        padding: 1rem;
+    }
+
+    .cert-img {
+        height: 160px;
+    }
+
     .header {
         padding: 0.75rem 1.25rem;
     }
@@ -680,6 +772,19 @@ section.visible {
 
     .contact-item {
         padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .cert-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .cert-img {
+        height: 180px;
+    }
+
+    .cert-name {
         font-size: 0.9rem;
     }
 
