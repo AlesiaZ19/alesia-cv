@@ -421,10 +421,16 @@ section.visible {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .mobile-menu.active {
     transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .mobile-nav-links {
