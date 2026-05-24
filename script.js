@@ -17,6 +17,14 @@ function renderPage(lang) {
   document.documentElement.lang = lang;
   document.title = d.pageTitle;
 
+  // Update OG / Twitter meta tags for current language
+  document.querySelector('meta[property="og:title"]').content = d.pageTitle;
+  document.querySelector('meta[name="twitter:title"]').content = d.pageTitle;
+  document.querySelector('meta[name="description"]').content = d.about.text;
+  document.querySelector('meta[property="og:description"]').content = d.about.text;
+  document.querySelector('meta[name="twitter:description"]').content = d.about.text;
+  document.querySelector('meta[property="og:locale"]').content = lang === 'ru' ? 'ru_RU' : 'en_US';
+
   // ─── Logo ───
   document.getElementById('logo').textContent = d.name;
 
@@ -33,6 +41,19 @@ function renderPage(lang) {
   // ─── Hero ───
   document.getElementById('heroName').textContent = d.name;
   document.getElementById('heroTitle').textContent = d.heroTitle;
+  document.getElementById('heroLocation').textContent = d.heroLocation;
+  document.getElementById('heroContacts').innerHTML = `
+    <div class="hero-contacts-line">
+      <a href="mailto:${d.heroContacts.email}" class="hero-link"><i class="fas fa-envelope"></i> ${d.heroContacts.email}</a>
+      <span class="hero-link-sep">|</span>
+      <a href="tel:${d.heroContacts.phone}" class="hero-link"><i class="fas fa-phone"></i> ${d.heroContacts.phone}</a>
+    </div>
+    <div class="hero-contacts-line">
+      <a href="${d.heroContacts.linkedin}" class="hero-link" target="_blank"><i class="fab fa-linkedin"></i> alesiaromasko</a>
+      <span class="hero-link-sep">|</span>
+      <a href="${d.heroContacts.telegram}" class="hero-link" target="_blank"><i class="fab fa-telegram-plane"></i> @lesiaRomashko</a>
+    </div>
+  `;
 
   // ─── About ───
   document.getElementById('aboutTitle').textContent = d.about.title;
@@ -118,6 +139,10 @@ function renderPage(lang) {
     <div class="glass-card contact-item">
       <span class="contact-icon"><i class="fab fa-linkedin"></i></span>
       <a href="${d.contact.linkedin}" class="nav-link">${d.contact.linkedin}</a>
+    </div>
+    <div class="glass-card contact-item">
+      <span class="contact-icon"><i class="fab fa-telegram-plane"></i></span>
+      <a href="${d.contact.telegram}" class="nav-link">${d.contact.telegram}</a>
     </div>`;
   document.getElementById('downloadLabel').textContent = d.contact.downloadLabel;
   document.getElementById('downloadBtn').href = d.contact.cvFile;
