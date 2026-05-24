@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alesia-zayats-cv.vercel.app/sitemap.xml
+Sitemap: https://alesiaz19.github.io/alesia-cv/sitemap.xml
