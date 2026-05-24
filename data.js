@@ -3,6 +3,7 @@ const cvData = {
     pageTitle: "Alesia Zayats — Lead IT Recruiter",
     name: "Alesia Zayats",
     heroTitle: "Lead IT Recruiter / Recruitment Team Lead",
+    heroStatus: "Open to work",
     heroLocation: "Belarus, Minsk",
     heroContacts: {
       email: "alesiaromasko19@gmail.com",
@@ -141,6 +142,7 @@ const cvData = {
     pageTitle: "Алеся Заяц — Ведущий IT-рекрутер",
     name: "Алеся Заяц",
     heroTitle: "Ведущий IT-рекрутер / Руководитель группы подбора",
+    heroStatus: "Открыта к предложениям",
     heroLocation: "Беларусь, Минск",
     heroContacts: {
       email: "alesiaromasko19@gmail.com",

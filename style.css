@@ -106,6 +106,26 @@ h2 {
     max-width: 90%;
 }
 
+.status-open-to-work {
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    color: #22c55e;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-top: 0.5rem;
+}
+
+.status-open-to-work::before {
+    content: '';
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-right: 0.4em;
+    vertical-align: middle;
+    box-shadow: 0 0 6px #22c55e66;
+}
+
 #heroLocation {
     font-size: clamp(0.95rem, 2vw, 1.15rem);
     color: var(--text-secondary);

@@ -62,6 +62,9 @@ function renderPage(lang) {
   document.getElementById('heroName').textContent = d.name;
   document.getElementById('heroTitle').textContent = d.heroTitle;
   document.getElementById('heroLocation').textContent = d.heroLocation;
+  const statusEl = document.getElementById('heroStatus');
+  statusEl.textContent = d.heroStatus;
+  statusEl.className = 'status-open-to-work';
   document.getElementById('heroContacts').innerHTML = `
     <div class="hero-contacts-line">
       <a href="mailto:${d.heroContacts.email}" class="hero-link"><i class="fas fa-envelope"></i> ${d.heroContacts.email}</a>
