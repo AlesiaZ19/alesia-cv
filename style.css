@@ -109,17 +109,18 @@ h2 {
 
 .status-open-to-work {
     position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    font-size: 0.65rem;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
     color: #22c55e;
     font-weight: 600;
     background: rgba(34, 197, 94, 0.1);
-    padding: 0.15rem 0.5rem;
+    padding: 0.2rem 0.65rem;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.35rem;
     white-space: nowrap;
     border: 1px solid rgba(34, 197, 94, 0.25);
 }
@@ -127,8 +128,8 @@ h2 {
 .status-open-to-work::before {
     content: '';
     display: inline-block;
-    width: 0.35em;
-    height: 0.35em;
+    width: 0.3em;
+    height: 0.3em;
     border-radius: 50%;
     background: #22c55e;
     flex-shrink: 0;
@@ -732,11 +733,10 @@ section.visible {
     }
 
     .status-open-to-work {
-        top: 0.75rem;
-        right: 1rem;
-        font-size: 0.55rem;
-        padding: 0.1rem 0.4rem;
-        gap: 0.2rem;
+        bottom: 1.5rem;
+        font-size: 0.5rem;
+        padding: 0.15rem 0.5rem;
+        gap: 0.25rem;
     }
 
     #heroContacts {
@@ -850,10 +850,10 @@ section.visible {
     }
 
     .status-open-to-work {
-        top: 0.5rem;
-        right: 0.75rem;
-        font-size: 0.55rem;
-        padding: 0.1rem 0.35rem;
+        bottom: 1rem;
+        font-size: 0.5rem;
+        padding: 0.1rem 0.45rem;
+    }
     }
 
     #heroContacts {
