@@ -137,7 +137,7 @@ const cvData = {
     name: "Алеся Заяц",
     heroTitle: "Ведущий IT-рекрутер / Руководитель группы подбора",
     heroStatus: "Открыта к предложениям",
-    heroLocation: "Беларусь, Минск · Remote",
+    heroLocation: "Беларусь, Минск · Удалённо",
     nav: [
       { id: "hero", label: "Главная" },
       { id: "about", label: "Обо мне" },
