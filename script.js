@@ -94,9 +94,9 @@ function renderPage(lang) {
   // ─── Languages ───
   document.getElementById('languagesTitle').textContent = d.languages.title;
   document.getElementById('languagesList').innerHTML = d.languages.items.map(langItem =>
-    `<div class="glass-card experience-card">
-      <div class="experience-date">${langItem.name}</div>
-      <div>${langItem.level}</div>
+    `<div class="glass-card lang-card">
+      <span class="lang-name">${langItem.name}</span>
+      <span class="lang-level">${langItem.level}</span>
     </div>`
   ).join('');
 

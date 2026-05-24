@@ -495,6 +495,34 @@ section.visible {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
+/* ─── Languages ─── */
+
+#languagesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.lang-card {
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1 1 280px;
+}
+
+.lang-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    min-width: 7rem;
+}
+
+.lang-level {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
 /* ─── Sections anchor offset ─── */
 
 #hero, #about, #achievements, #skills, #experience, #education, #certificates, #languages, #contact {
@@ -657,6 +685,10 @@ section.visible {
         padding: 1.25rem;
     }
 
+    .lang-card {
+        padding: 1rem 1.5rem;
+    }
+
     .contact {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -764,6 +796,18 @@ section.visible {
 
     .position-title {
         font-size: 0.9rem;
+    }
+
+    .lang-card {
+        padding: 0.85rem 1.25rem;
+    }
+
+    .lang-name {
+        font-size: 0.95rem;
+    }
+
+    .lang-level {
+        font-size: 0.85rem;
     }
 
     .experience-card p {
