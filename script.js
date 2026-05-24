@@ -1,6 +1,7 @@
-// Detect language based on URL path, localStorage, then browser language
+// Detect language based on URL query, localStorage, then browser language
 function detectLanguage() {
-  if (window.location.pathname.startsWith('/alesia-cv/ru') || window.location.pathname === '/ru') {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('lang') === 'ru') {
     return 'ru';
   }
   const savedLang = localStorage.getItem('lang');
@@ -14,13 +15,15 @@ function detectLanguage() {
 
 let currentLang = detectLanguage();
 
-// Sync URL path with language on first load
+// Sync URL query with language on first load
 (function initUrl() {
-  const base = window.location.origin + '/alesia-cv';
-  if (currentLang === 'ru' && !window.location.pathname.startsWith('/alesia-cv/ru')) {
-    history.replaceState(null, '', base + '/ru');
-  } else if (currentLang === 'en' && window.location.pathname.startsWith('/alesia-cv/ru')) {
-    history.replaceState(null, '', base + '/');
+  const url = new URL(window.location);
+  if (currentLang === 'ru' && url.searchParams.get('lang') !== 'ru') {
+    url.searchParams.set('lang', 'ru');
+    history.replaceState(null, '', url);
+  } else if (currentLang === 'en' && url.searchParams.get('lang') === 'ru') {
+    url.searchParams.delete('lang');
+    history.replaceState(null, '', url);
   }
 })();
 
@@ -37,8 +40,10 @@ function renderPage(lang) {
   document.querySelector('meta[property="og:description"]').content = d.about.text;
   document.querySelector('meta[name="twitter:description"]').content = d.about.text;
   document.querySelector('meta[property="og:locale"]').content = lang === 'ru' ? 'ru_RU' : 'en_US';
-  document.querySelector('meta[property="og:url"]').content = lang === 'ru' ? 'https://alesiaz19.github.io/alesia-cv/ru' : 'https://alesiaz19.github.io/alesia-cv/';
-  document.querySelector('link[rel="canonical"]').href = lang === 'ru' ? 'https://alesiaz19.github.io/alesia-cv/ru' : 'https://alesiaz19.github.io/alesia-cv/';
+  const baseUrl = 'https://alesiaz19.github.io/alesia-cv';
+  const pageUrl = lang === 'ru' ? baseUrl + '/?lang=ru' : baseUrl + '/';
+  document.querySelector('meta[property="og:url"]').content = pageUrl;
+  document.querySelector('link[rel="canonical"]').href = pageUrl;
 
   // ─── Logo ───
   document.getElementById('logo').textContent = d.name;
@@ -191,12 +196,13 @@ function initLangToggle() {
       if (lang !== currentLang) {
         currentLang = lang;
         localStorage.setItem('lang', lang);
-        const base = window.location.origin + '/alesia-cv';
+        const url = new URL(window.location);
         if (lang === 'ru') {
-          history.replaceState(null, '', base + '/ru');
+          url.searchParams.set('lang', 'ru');
         } else {
-          history.replaceState(null, '', base + '/');
+          url.searchParams.delete('lang');
         }
+        history.replaceState(null, '', url);
         renderPage(lang);
       }
     });
