@@ -4,7 +4,7 @@ const cvData = {
     name: "Alesia Zayats",
     heroTitle: "Lead IT Recruiter / Recruitment Team Lead",
     heroStatus: "Open to work",
-    heroLocation: "Belarus, Minsk",
+    heroLocation: "Belarus, Minsk · Remote",
     nav: [
       { id: "hero", label: "Home" },
       { id: "about", label: "About" },
@@ -137,7 +137,7 @@ const cvData = {
     name: "Алеся Заяц",
     heroTitle: "Ведущий IT-рекрутер / Руководитель группы подбора",
     heroStatus: "Открыта к предложениям",
-    heroLocation: "Беларусь, Минск",
+    heroLocation: "Беларусь, Минск · Remote",
     nav: [
       { id: "hero", label: "Главная" },
       { id: "about", label: "Обо мне" },
