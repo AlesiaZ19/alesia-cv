@@ -2,7 +2,8 @@
 
 function detectLanguage() {
   const params = new URLSearchParams(window.location.search);
-  if (params.get('lang') === 'ru') return 'ru';
+  const langParam = params.get('lang');
+  if (langParam && langParam.startsWith('ru')) return 'ru';
   const savedLang = localStorage.getItem('lang');
   if (savedLang) return savedLang;
   const browserLang = navigator.language.split('-')[0];
