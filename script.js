@@ -87,6 +87,8 @@ function renderMeta(d, lang) {
     const data = JSON.parse(ld.textContent);
     data.url = pageUrl;
     data.description = d.about.text;
+    data.jobTitle = d.heroTitle;
+    data.knowsAbout = d.skills.items;
     data.alumniOf = d.education.items.map(e => e.institution);
     data.worksFor = d.experience.items[0]?.company
       ? { "@type": "Organization", "name": d.experience.items[0].company }
